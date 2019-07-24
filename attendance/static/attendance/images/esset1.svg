@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="44.399" height="44.257" viewBox="0 0 44.399 44.257">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        clip-path: url(#clip-path);
+      }
+
+      .cls-3 {
+        fill: rgba(0,54,175,0.82);
+      }
+    </style>
+    <clipPath id="clip-path">
+      <rect class="cls-1" width="44.399" height="44.257"/>
+    </clipPath>
+  </defs>
+  <g id="구성_요소_1" data-name="구성 요소 1" class="cls-2" transform="translate(0 0)">
+    <path id="패스_73" data-name="패스 73" class="cls-3" d="M1361.922,6736.495a11.865,11.865,0,1,0-12.051-.068c-9.611,2.526-14.79,11.316-16.282,22.217h44.4C1376.505,6747.826,1371.392,6739.09,1361.922,6736.495Z" transform="translate(-1333.589 -6714.386)"/>
+  </g>
+</svg>

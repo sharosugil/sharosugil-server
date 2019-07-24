@@ -1,0 +1,977 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'attendance/style2.css' %}">
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HaeBam Page</title>
+    <link href="https://fonts.googleapis.com/css?family=Poiret+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Muli:300&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <div id="left">
+        <!-- left안에 들어있는 정보는
+        1. 지금까지 모든 돈의 총 량 (div.outer>div.inner>div#text>div#price) - 단 목표금액에 도달해서 사용했을 시에 초기화됨-->
+        <a id="checkMoney" href="{% url 'attendance:index1' %}">
+            <div class="outer">
+                <div class="inner">
+                    <div id="text">
+                        <div id="coinImg">
+                            <img src="{% static 'attendance/images/esset9.svg' %}" alt="그림이 존재하지 않습니다" width="240px" height="194px">
+                        </div>
+                        <div id="bar"></div>
+                        <div id="price">
+                            8500₩
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div id="logo">
+            HaeBam
+    </div>
+    <div id="right">
+            <!-- data 안에 들어있는 정보는
+            1. 다가오는 회의의 날짜정보 (div#data>div.outer>div.inner>div#date>span#dataText)
+            2. 다가오는 회의의 위치정보 (div#data>div.outer>div.inner>div#loc>span#locText)-->
+            <div id="data">
+                <div class="outer">
+                    <div class="inner">
+                        <div id="date">
+                            <img src="{% static 'attendance/images/esset2.svg' %}" alt="그림이 존재하지 않습니다" width="34.552px" height="32.02px">
+                            <span id="dateText">Monday July 15th 2019 17:00</span>
+                        </div>
+                        <div id="loc">
+                            <img src="{% static 'attendance/images/esset3.svg' %}" alt="그림이 존재하지 않습니다" width="22.88px" height="32.76px">
+                            <span id="locText">Seoul National University 301-201</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="plusClass" id="plus" onclick="myFunction()">
+                <img src="{% static 'attendance/images/esset10.svg' %}" alt="그림이 존재하지 않습니다" width="30px" height="30px">
+                <!-- 현재까지 진행했던 모든 미팅의 출석 여부
+                날짜는 (div.meetingPopupClass>div.outer>div.inner>div#date-$>div.meeting-popup-info-date) 로 저장됨
+                각 멤버별 출석정보는 left와 right 로 나누어서 저장됨 (순서는 member 1~ member8 까지 아래와 동일한 순서로 출력한다)
+                ( div.meetingPopupClass>div.outer>div.inner>div#date-$>div.data-$-info-left,
+                 div.meetingPopupClass>div.outer>div.inner>div#date-$>div.data-$-info-right 로 나누어서 저장)-->
+                <div class="meetingPopupClass" id="meeting-info-popup">
+                    <div class="outer">
+                        <div class="inner" id="meeting-popup-inner">
+                            <div id="meeting-popup-title">
+                                Meeting Information
+                            </div>
+                            <div id="meeting-popup-bar"></div>
+                            <div id="meeting-popup-info">
+                                <div id="date-1" class="meeting-popup-info">
+                                    <div class="meeting-popup-info-date">
+                                        [2019.07.15]
+                                    </div>
+                                    <div id="date-1-info-left" class="meeting-popup-info-left">
+                                        Kim Ha Yeon : on time <br />
+                                        Kim Ha Yeon : on time <br />
+                                        Kim Ha Yeon : on time <br />
+                                        Kim Ha Yeon : on time <br />
+                                    </div>
+                                    <div id="date-1-info-right" class="meeting-popup-info-right">
+                                        Kim Ha Yeon : on time <br />
+                                        Kim Ha Yeon : on time <br />
+                                        Kim Ha Yeon : on time <br />
+                                        Kim Ha Yeon : on time <br />
+                                    </div>
+                                </div>
+                                <div id="date-2" class="meeting-popup-info">
+                                    <div class="meeting-popup-info-date">
+                                        [2019.07.15]
+                                    </div>
+                                    <div id="date-2-info-left" class="meeting-popup-info-left">
+                                        Kim Ha Yeon : on time <br />
+                                        Kim Ha Yeon : on time <br />
+                                        Kim Ha Yeon : on time <br />
+                                        Kim Ha Yeon : on time <br />
+                                    </div>
+                                    <div id="date-2-info-right" class="meeting-popup-info-right">
+                                        Kim Ha Yeon : on time <br />
+                                        Kim Ha Yeon : on time <br />
+                                        Kim Ha Yeon : on time <br />
+                                        Kim Ha Yeon : on time <br />
+                                    </div>
+                                </div>
+                                <div id="date-3" class="meeting-popup-info">
+                                    <div class="meeting-popup-info-date">
+                                        [2019.07.15]
+                                    </div>
+                                    <div id="date-3-info-left" class="meeting-popup-info-left">
+                                        Kim Ha Yeon : on time <br />
+                                        Kim Ha Yeon : on time <br />
+                                        Kim Ha Yeon : on time <br />
+                                        Kim Ha Yeon : on time <br />
+                                    </div>
+                                    <div id="date-3-info-right" class="meeting-popup-info-right">
+                                        Kim Ha Yeon : on time <br />
+                                        Kim Ha Yeon : on time <br />
+                                        Kim Ha Yeon : on time <br />
+                                        Kim Ha Yeon : on time <br />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script>
+                function myFunction() {
+                    var plusClass = document.getElementById("meeting-info-popup");
+                    plusClass.classList.toggle("showPlus");
+                }
+            </script>
+    
+            <div id="rightBar"></div>
+    
+            <div id="member">
+                <div class="outer">
+                    <div class="inner2">
+                        <div id="leftMember">
+                            <!-- leftMemver 는 member1 ~ member4 까지 각 멤버들은 ol 태그의 id로 구분됨, 한 member의 내부에 있는 정보는
+                            1. 각 멤버의 이름 (div#memberInfo>label#name)
+                            2. 각 멤버가 하는 일 (div#memberInfo>label#work)
+                            3. 각 멤버의 닐짜별 출석 여부 - 팝업 창으로 띄워줌 - (출석 여부는 날짜가 최근일수록 위에 떠있음 [#member-popup-info-no-$] 의 형태로 저장되어있음,
+                            날짜는 (div#member-popup-info-no-$>span.member-info-date) 형태로, 출석여부는 (div#member-popup-info-no-$>span.member-info-attendance>img) 형태로 저장
+                            정참이면 esset4 지각이면 esset5 불참이면 esset6에 저장됨 각 esset 파일은 svg로 불러와야 함 )-->
+                            <ol id="member1" class="memberDataClass" onclick="myFunctionMember1()">
+                                <img src="{% static 'attendance/images/esset7.svg' %}" alt="그림이 존재하지 않습니다" width="60px" height="60px">
+                                <div id="memberInfo">
+                                    <label id="name">Kim Ha Yeon</label><br/>
+                                    <label id="work">Designer & Web Developer</label>
+                                </div>
+                                <div class="leftMemberPopupClass" id="left-member-1-info-popup">
+                                    <div class="outer">
+                                        <div class="inner member-popup-inner">
+                                            <div class="member-popup-info-title">
+                                                Total Attendance
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-10">
+                                                <span class="member-info-date">
+                                                    [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-9">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-8">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-7">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-6">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-5">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-4">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-3">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-2">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-1">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ol>
+                            <script>
+                                function myFunctionMember1() {
+                                    var memberDataClass = document.getElementById("left-member-1-info-popup");
+                                    memberDataClass.classList.toggle("showMember");
+                                }
+                            </script>
+                            <ol id="member2" class="memberDataClass" onclick="myFunctionMember2()">
+                                <img src="{% static 'attendance/images/esset7.svg' %}" alt="그림이 존재하지 않습니다" width="60px" height="60px">
+                                <div id="memberInfo">
+                                    <label id="name">Kim Ha Yeon</label><br/>
+                                    <label id="work">Designer & Web Developer</label>
+                                </div>
+                                <div class="leftMemberPopupClass" id="left-member-2-info-popup">
+                                    <div class="outer">
+                                        <div class="inner member-popup-inner">
+                                            <div class="member-popup-info-title">
+                                                Total Attendance
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-10">
+                                                <span class="member-info-date">
+                                                    [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-9">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset5.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-8">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-7">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-6">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-5">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-4">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-3">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-2">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-1">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset5.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ol>
+                            <script>
+                                function myFunctionMember2() {
+                                    var memberDataClass = document.getElementById("left-member-2-info-popup");
+                                    memberDataClass.classList.toggle("showMember");
+                                }
+                            </script>
+                            <ol id="member3" class="memberDataClass" onclick="myFunctionMember3()">
+                                <img src="{% static 'attendance/images/esset7.svg' %}" alt="그림이 존재하지 않습니다" width="60px" height="60px">
+                                <div id="memberInfo">
+                                    <label id="name">Kim Ha Yeon</label><br/>
+                                    <label id="work">Designer & Web Developer</label>
+                                </div>
+                                <div class="leftMemberPopupClass" id="left-member-3-info-popup">
+                                    <div class="outer">
+                                        <div class="inner member-popup-inner">
+                                            <div class="member-popup-info-title">
+                                                Total Attendance
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-10">
+                                                <span class="member-info-date">
+                                                    [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset5.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-9">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset6.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-8">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-7">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-6">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-5">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-4">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-3">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-2">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset6.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-1">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset5.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ol>
+                            <script>
+                                function myFunctionMember3() {
+                                    var memberDataClass = document.getElementById("left-member-3-info-popup");
+                                    memberDataClass.classList.toggle("showMember");
+                                }
+                            </script>
+    
+                            <ol id="member4" class="memberDataClass" onclick="myFunctionMember4()">
+                                <img src="{% static 'attendance/images/esset7.svg' %}" alt="그림이 존재하지 않습니다" width="60px" height="60px">
+                                <div id="memberInfo">
+                                    <label id="name">Kim Ha Yeon</label><br/>
+                                    <label id="work">Designer & Web Developer</label>
+                                </div>
+                                <div class="leftMemberPopupClass" id="left-member-4-info-popup">
+                                    <div class="outer">
+                                        <div class="inner member-popup-inner">
+                                            <div class="member-popup-info-title">
+                                                Total Attendance
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-10">
+                                                <span class="member-info-date">
+                                                    [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-9">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset5.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-8">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-7">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset6.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-6">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset5.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-5">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-4">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset6.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-3">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-2">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-1">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset5.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ol>
+                            <script>
+                                function myFunctionMember4() {
+                                    var memberDataClass = document.getElementById("left-member-4-info-popup");
+                                    memberDataClass.classList.toggle("showMember");
+                                }
+                            </script>
+    
+                        </div>
+                        <div id="rightMember">
+                            <ol id="member5" class="memberDataClass" onclick="myFunctionMember5()">
+                                <img src="{% static 'attendance/images/esset7.svg' %}" alt="그림이 존재하지 않습니다" width="60px" height="60px">
+                                <div id="memberInfo">
+                                    <label id="name">Kim Ha Yeon</label><br/>
+                                    <label id="work">Designer & Web Developer</label>
+                                </div>
+                                <div class="rightMemberPopupClass" id="right-member-5-info-popup">
+                                    <div class="outer">
+                                        <div class="inner member-popup-inner">
+                                            <div class="member-popup-info-title">
+                                                Total Attendance
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-10">
+                                                <span class="member-info-date">
+                                                    [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-9">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset5.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-8">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-7">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset6.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-6">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-5">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-4">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset6.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-3">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-2">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-1">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset5.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ol>
+                            <script>
+                                function myFunctionMember5() {
+                                    var memberDataClass = document.getElementById("right-member-5-info-popup");
+                                    memberDataClass.classList.toggle("showMember");
+                                }
+                            </script>
+                            <ol id="member6" class="memberDataClass" onclick="myFunctionMember6()">
+                                <img src="{% static 'attendance/images/esset7.svg' %}" alt="그림이 존재하지 않습니다" width="60px" height="60px">
+                                <div id="memberInfo">
+                                    <label id="name">Kim Ha Yeon</label><br/>
+                                    <label id="work">Designer & Web Developer</label>
+                                </div>
+                                <div class="rightMemberPopupClass" id="right-member-6-info-popup">
+                                    <div class="outer">
+                                        <div class="inner member-popup-inner">
+                                            <div class="member-popup-info-title">
+                                                Total Attendance
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-10">
+                                                <span class="member-info-date">
+                                                    [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset6.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-9">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-8">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset5.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-7">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset6.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-6">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-5">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-4">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset5.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-3">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-2">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-1">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ol>
+                            <script>
+                                function myFunctionMember6() {
+                                    var memberDataClass = document.getElementById("right-member-6-info-popup");
+                                    memberDataClass.classList.toggle("showMember");
+                                }
+                            </script>
+                            <ol id="member7" class="memberDataClass" onclick="myFunctionMember7()">
+                                <img src="{% static 'attendance/images/esset7.svg' %}" alt="그림이 존재하지 않습니다" width="60px" height="60px">
+                                <div id="memberInfo">
+                                    <label id="name">Kim Ha Yeon</label><br/>
+                                    <label id="work">Designer & Web Developer</label>
+                                </div>
+                                <div class="rightMemberPopupClass" id="right-member-7-info-popup">
+                                    <div class="outer">
+                                        <div class="inner member-popup-inner">
+                                            <div class="member-popup-info-title">
+                                                Total Attendance
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-10">
+                                                <span class="member-info-date">
+                                                    [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-9">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-8">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset5.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-7">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-6">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset6.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-5">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-4">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset5.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-3">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset6.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-2">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-1">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset5.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ol>
+                            <script>
+                                function myFunctionMember7() {
+                                    var memberDataClass = document.getElementById("right-member-7-info-popup");
+                                    memberDataClass.classList.toggle("showMember");
+                                }
+                            </script>
+                            <ol id="member8" class="memberDataClass" onclick="myFunctionMember5()">
+                                <img src="{% static 'attendance/images/esset7.svg' %}" alt="그림이 존재하지 않습니다" width="60px" height="60px">
+                                <div id="memberInfo">
+                                    <label id="name">Kim Ha Yeon</label><br/>
+                                    <label id="work">Designer & Web Developer</label>
+                                </div>
+                                <div class="rightMemberPopupClass" id="right-member-8-info-popup">
+                                    <div class="outer">
+                                        <div class="inner member-popup-inner">
+                                            <div class="member-popup-info-title">
+                                                Total Attendance
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-10">
+                                                <span class="member-info-date">
+                                                    [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset5.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-9">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset6.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-8">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset6.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-7">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-6">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-5">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-4">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset5.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-3">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-2">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset4.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                            <div class="member-popup-info" id="member-popup-info-no-1">
+                                                <span class="member-info-date">
+                                                        [2019.07.15]
+                                                </span>
+                                                <span class="member-info-attendance">
+                                                    <img src="{% static 'attendance/images/esset5.svg' %}" alt="그림이 존재하지 않습니다" width="35px" height="35px">
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ol>
+                            <script>
+                                function myFunctionMember8() {
+                                    var memberDataClass = document.getElementById("right-member-8-info-popup");
+                                    memberDataClass.classList.toggle("showMember");
+                                }
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    </html>

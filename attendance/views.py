@@ -1,4 +1,6 @@
 from rest_framework import generics
+from django.views import generic
+from django.shortcuts import render
 
 from .models import *
 from .serializers import *
@@ -32,3 +34,11 @@ class CheckingList(generics.ListCreateAPIView):
 class CheckingDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Checking.objects.all()
     serializer_class = CheckingSerializer
+
+
+class IndexView1(generic.TemplateView):
+    template_name = 'attendance/testPage1.html'
+
+
+class IndexView2(generic.TemplateView):
+    template_name = 'attendance/testPage2.html'

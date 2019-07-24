@@ -1,0 +1,30 @@
+<svg id="그룹_1912" data-name="그룹 1912" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="113.334" height="113.334" viewBox="0 0 113.334 113.334">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: rgba(247,247,247,0.7);
+      }
+
+      .cls-3 {
+        clip-path: url(#clip-path);
+      }
+
+      .cls-4 {
+        fill: rgba(0,54,175,0.82);
+      }
+    </style>
+    <clipPath id="clip-path">
+      <rect class="cls-1" width="44.399" height="44.257"/>
+    </clipPath>
+  </defs>
+  <g id="그룹_1904" data-name="그룹 1904">
+    <ellipse id="타원_24" data-name="타원 24" class="cls-2" cx="56.667" cy="56.667" rx="56.667" ry="56.667"/>
+  </g>
+  <g id="구성_요소_1" data-name="구성 요소 1" class="cls-3" transform="translate(34.452 33.128)">
+    <path id="패스_73" data-name="패스 73" class="cls-4" d="M1361.922,6736.495a11.865,11.865,0,1,0-12.051-.068c-9.611,2.526-14.79,11.316-16.282,22.217h44.4C1376.505,6747.826,1371.392,6739.09,1361.922,6736.495Z" transform="translate(-1333.589 -6714.386)"/>
+  </g>
+</svg>
