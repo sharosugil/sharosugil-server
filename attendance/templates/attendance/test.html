@@ -75,36 +75,36 @@
                         </div>
                         <div id="meeting-popup-bar"></div>
                         <div id="meeting-popup-info">
-                                {% for meeting in meeting_list %}
-                                <div id="date-{{ forloop.counter }}" class="meeting-popup-info">
-                                    <div class="meeting-popup-info-date">
-                                        {{ meeting.meeting_date|date:"SHORT_DATE_FORMAT" }}
-                                    </div>
-                                    {% for check in meeting.checking_set.all %}
-                                        {% if forloop.counter < 5 %}
-                                            <div id="date-{{ forloop.counter }}-info-left" class="meeting-popup-info-left">
-                                                {% if check.state == 0 %}
-                                                    {{ check.person }} : Absent <br/>
-                                                {% elif check.state == 1 %}
-                                                    {{ check.person }} : Late <br/>
-                                                {% else %}
-                                                    {{ check.person }} : On time <br />
-                                                {% endif %}
-                                            </div>
-                                        {% else %}
-                                            <div id="date-{{ forloop.counter }}-info-right" class="meeting-popup-info-right">                                        
-                                                {% if check.state == 0 %}
-                                                    {{ check.person }} : Absent <br/>
-                                                {% elif check.state == 1 %}
-                                                    {{ check.person }} : Late <br/>
-                                                {% else %}
-                                                    {{ check.person }} : On time <br />
-                                                {% endif %}
-                                            </div>
-                                        {% endif %}
-                                    {% endfor %}
+                            {% for meeting in meeting_list %}
+                            <div id="date-{{ forloop.counter }}" class="meeting-popup-info">
+                                <div class="meeting-popup-info-date">
+                                    {{ meeting.meeting_date|date:"SHORT_DATE_FORMAT" }}
                                 </div>
+                                {% for check in meeting.checking_set.all %}
+                                    {% if forloop.counter < 5 %}
+                                        <div id="date-{{ forloop.counter }}-info-left" class="meeting-popup-info-left">
+                                            {% if check.state == 0 %}
+                                                {{ check.person }} : Absent <br/>
+                                            {% elif check.state == 1 %}
+                                                {{ check.person }} : Late <br/>
+                                            {% else %}
+                                                {{ check.person }} : On time <br />
+                                            {% endif %}
+                                        </div>
+                                    {% else %}
+                                        <div id="date-{{ forloop.counter }}-info-right" class="meeting-popup-info-right">                                        
+                                            {% if check.state == 0 %}
+                                                {{ check.person }} : Absent <br/>
+                                            {% elif check.state == 1 %}
+                                                {{ check.person }} : Late <br/>
+                                            {% else %}
+                                                {{ check.person }} : On time <br />
+                                            {% endif %}
+                                        </div>
+                                    {% endif %}
                                 {% endfor %}
+                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
@@ -174,7 +174,7 @@
                     <div id="rightMember">
                         {% for member in member_list %}
                         {% if forloop.counter > 4 %}
-                        <ol id="{{ member.membernumber }}" class="memberDataClass" onclick="myFunctionMember('right', this);">
+                        <ol id="{{ member.membernumber }}" class="memberDataClass" onclick="myFunctionMember1('right', this);">
                             <img src="{% static 'attendance/images/esset7.svg' %}" alt="그림이 존재하지 않습니다" width="60px" height="60px">
                             <div id="memberInfo">
                                 <label id="name">{{ member }}</label><br/>

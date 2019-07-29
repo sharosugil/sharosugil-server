@@ -11,6 +11,8 @@ urlpatterns = [
     path('person/<int:pk>/', PersonDetail.as_view()),
     path('checking/', CheckingList.as_view()),
     path('checking/<int:pk>/', CheckingDetail.as_view()),
+    path('test/', TestView.as_view(), name="test"),
+    #path('testtemplate/', TestTemplateView.as_view(), name='testtemplate'),
     path('index1/', IndexView1.as_view(), name="index1"),
     path('index2/', IndexView2.as_view(), name="index2"),
 ]

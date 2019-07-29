@@ -17,3 +17,4 @@ class PersonAdmin(admin.ModelAdmin):
 
 admin.site.register(Meeting, MeetingAdmin)
 admin.site.register(Person, PersonAdmin)
+admin.site.register(Checking)
